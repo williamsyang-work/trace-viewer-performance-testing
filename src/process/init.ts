@@ -1,33 +1,28 @@
-import puppeteer from 'puppeteer';
-import { debugLog, errorLog } from '../util/log.js';
-import { wait } from '../util/wait.js';
-import * as ENV from '../util/env.js';
+import { initBrowser, page } from '../util/browser.js';
+import { task, performanceTask, setProcess } from '../util/task.js';
+import { initEnvironment } from '../util/env.js';
 
-const environment = ENV.get();
-export let browser: puppeteer.Browser;
-export let page: puppeteer.Page;
 
-export async function init (url: string) {
-    
-    let task = "";
 
-    try {
-        debugLog(task = 'Opening browser');
-        browser = await puppeteer.launch({ headless: !environment.headful });
+export default async function init (url: string) {
 
-        debugLog(task = 'Opening tab');
-        page = await browser.newPage();
+    initEnvironment();
+    setProcess("Init");
+        
+    await task(
+        "Starting the browser",
+        async () => { await initBrowser(); }
+    )
 
-        debugLog(task = 'Navigating to trace-extension.');
-        await page.goto(url);
+    await performanceTask(
+        "Navigating to page",
+        async () => {
+            await page.goto(url);
+            await page.evaluate(() =>  localStorage.clear());
+            await page.waitForSelector("#theia-main-content-panel", { visible: true })
+        },
+        250
+    )
 
-        debugLog(task = 'Waiting for page to load...');
-        await wait(10000);
-
-        return true;
-    } catch (e) {
-        errorLog('init', task, e);
-        return false;
-    }
 
 }

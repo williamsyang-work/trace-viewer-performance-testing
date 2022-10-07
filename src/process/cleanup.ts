@@ -1,20 +1,19 @@
-import { browser, page } from './init.js';
-import { debugLog, errorLog } from '../util/log.js'
-import { wait } from '../util/wait.js';
+import { browser } from '../util/browser.js';
+import { environment } from '../util/env.js';
+import { task, setProcess } from '../util/task.js';
 
-export async function cleanup () {
+export default async function cleanup () {
 
-    let task = "";
+    if (!environment.debug) {
+    
+        setProcess("Cleanup");
 
-    try {
-        debugLog(task = "Waiting for like 5 seconds i guess");
-        await wait(5000);
-        
-        debugLog(task = 'Closing the browser');
-        await browser.close();
-    } catch (e) {
-        errorLog('cleanup', task, e);
-        return false;
+        await task(
+            "Closing the page",
+            async () => {
+                await browser.close();
+            }
+        )
     }
-    return true;
+
 }

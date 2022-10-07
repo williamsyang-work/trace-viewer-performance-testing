@@ -1,58 +1,72 @@
-import { page } from "../process/init.js";
-import { wait } from "../util/wait.js";
-import { debugLog, errorLog } from "../util/log.js";
-import * as ENV from "../util/env.js";
-
-const environment = ENV.get();
+import { page } from "../util/browser.js";
+import { task, setProcess, performanceTask } from "../util/task.js";
 
 export default async function openTrace() {
 
-    let task = "";
-    let target = "";
-    try {
-        debugLog(task = "Opening a trace");
+    setProcess("Open Trace")
 
-        target = "left panel Trace-Viewer button";
-        const TraceViewerLeftPanelButtonSelector = ".theia-app-left > ul:nth-child(1) > li:nth-child(6) > div:nth-child(1) > div:nth-child(1)";
-        debugLog(task = "Finding " + target);
-        await page.$(TraceViewerLeftPanelButtonSelector);
+    await task(
+        "Clicking left panel Trace-Viewer button",
+        async () => {
+            const TraceViewerLeftPanelButtonSelector = ".theia-app-left > ul:nth-child(1) > li:nth-child(6) > div:nth-child(1) > div:nth-child(1)";
+            await page.$(TraceViewerLeftPanelButtonSelector);
+            await page.click(TraceViewerLeftPanelButtonSelector);
+        },
+        1000
+    );
 
-        await wait(500);
+    
+    
+    await task(
+        "Clicking 'many-threads' trace",
+        async () => {
+            const Target = "#trace-explorer-opened-traces-widget > div:nth-child(1) > div > div > div:nth-child(1) > div";
+            await page.$(Target);
+            await page.click(Target);
+        }
+    );
 
-        debugLog(task = "Clicking " + target);
-        await page.click(TraceViewerLeftPanelButtonSelector);
+    await performanceTask(
+        "Opening the 'Resources Status' view",
+        async () => {
+            const ResourceStatusButton = "#outputs-list-container-11";
+            await page.$(ResourceStatusButton);
+            await page.click(ResourceStatusButton);
+            
+            const Canvas = "#main-timegraph-content"
+            await page.waitForSelector(Canvas, { visible: true });
+        }
+    )
+    // Leave like this for now.
+    return;
 
-        await wait(500);
+    await task(
+        "Clicking 'Open Trace' button",
+        async () => {
+            const OpenTraceButton = ".theia-button";
+            await page.$(OpenTraceButton);
+            await page.click(OpenTraceButton);
+        },
+        250
+    );
 
-        target = "'Open Trace' button";
-        const OpenTraceButton = ".theia-button";
-        debugLog(task = "Finding " + target);
-        await page.$(OpenTraceButton);
+    await task(
+        "Clicking 'Many-Threads' directory",
+        async () => {
+            const ManyThreadsButton = ".theia-FileDialog > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(6) > div:nth-child(2)";
+            await page.$(ManyThreadsButton);
+            await page.click(ManyThreadsButton);
+        },
+        500
+    );
 
-        debugLog(task = "Clicking " + target);
-        await page.click(OpenTraceButton);
+    await task(
+        "Clicking 'Open Button'",
+        async () => {
+            const OpenButton = "button.theia-button:nth-child(3)";
+            await page.$(OpenButton);
+            await page.click(OpenButton);
+        }
+    );
 
-        await wait(1000);
-
-        target = "'Many-Threads' directory";
-        const ManyThreadsButton = ".theia-FileDialog > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(6) > div:nth-child(2)";
-        debugLog(task = "Finding " + target);
-        await page.$(ManyThreadsButton);
-
-        debugLog(task = "Clicking " + target);
-        await page.click(ManyThreadsButton);
-
-        await wait(500);
-
-        target = "Open Button"
-        const OpenButton = "button.theia-button:nth-child(3)";
-        debugLog(task = "Finding " + target);
-        await page.$(OpenButton);
-
-        debugLog(task = "Clicking " + target);
-        await page.click(OpenButton);
-        
-    } catch (e) {
-        errorLog('OpenTrace', task, e);
-    }
 }
