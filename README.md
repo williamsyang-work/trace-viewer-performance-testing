@@ -1,3 +1,3 @@
 # trace-viewer-performance-testing
 
-Will update readme if we persue automatic performance testing.
+Proof of concept for automatic performance testing for the Theia-Trace-Extension.
