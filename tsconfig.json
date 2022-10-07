@@ -3,7 +3,7 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "lib": ["es2020", "dom"],
-    "module": "system",
+    "module": "esnext",
     "preserveConstEnums": true,
     "moduleResolution": "node",
     "strict": true,

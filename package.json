@@ -2,9 +2,11 @@
   "name": "trace-extension-performance-test",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "scripts": {
     "watch": "npx tsc -w",
-    "start": "node output/index.js"
+    "start": "node dist/index.js",
+    "start:debug": "node dist/index.js -debug -headful"
   },
   "dependencies": {
     "puppeteer": "^18.2.1",
