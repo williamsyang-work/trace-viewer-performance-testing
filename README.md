@@ -7,6 +7,8 @@ This is simply a function library for writing performance tests that are run thr
 
 Right now, it only logs performance timings of actions.  Future work is needed to compare these results and get a threshold for "Performance is too poor to submit this PR", or at least throw a warning.
 
+![image](https://user-images.githubusercontent.com/98342456/195694035-6ce4e1f0-d939-4e2f-a00b-181e1def6fff.png)
+
 ## Run The Example
 1) Start the theia-trace-extension browser and trace-compass-server (See [theia-trace-extension](https://github.com/eclipse-cdt-cloud/theia-trace-extension))
 2) Open the browser example and open a trace.  Then close the browser.
