@@ -35,7 +35,7 @@ A dockerfile/docker image was successfully made that can run Puppeteer / Chromiu
 
 Not sure if docker is needed, or if Theia-Trace-Extension has been successfully run in docker yet.
 
-The code can be integrated into any codebase to directly have access, but I think its ugly.  See: [williamsyang-work/theia-trace-extension at performance-testing (github.com)](https://github.com/williamsyang-work/theia-trace-extension/tree/performance-testing).
+The code can be copy and pasted into any codebase for direct access, but I think its ugly.  See: [williamsyang-work/theia-trace-extension at performance-testing (github.com)](https://github.com/williamsyang-work/theia-trace-extension/tree/performance-testing).
 
 ## TO-DO
 1) Ability to automatically launch and setup the source application
