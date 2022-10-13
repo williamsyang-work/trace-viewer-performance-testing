@@ -25,7 +25,7 @@ This uses vanilla Puppeteer.js.  See documentation on how to use the [Puppeteer 
 
 For the internal application, in `/src/tests/` create a new file `your-test.ts`.  You can reference `open-trace.ts` for an example of how the internal code should look.
 
-Once you have your test written, import and add it into the `test()` function inside `src/process/run-tests.ts`.  (This, along w/ everything else, can be improved in future development.)
+Once you have your test written, import and add it into the `test()` function inside `src/process/run-tests.ts`.
 
 ## Deployment Exploration
 
