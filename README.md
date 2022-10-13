@@ -12,7 +12,7 @@ Right now, it only logs performance timings of actions.  Future work is needed t
 ## Run The Example
 1) Start the theia-trace-extension browser and trace-compass-server (See [theia-trace-extension](https://github.com/eclipse-cdt-cloud/theia-trace-extension))
 2) Open the browser example and open a trace.  Then close the browser.
-	 - The test needs a trace already be open in order to work.  Still in POC.
+	 - The test needs a trace already be open in order to work.  (Still in POC!)
 	 - The code for selecting a trace is in `/src/tests/open-trace.ts` @ 53-61.  CSS Selector may need to be modified.
 
 3) In the trace-viewer-performance-testing directory, run:
